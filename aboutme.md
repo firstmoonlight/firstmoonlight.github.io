@@ -1,16 +1,18 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: Do not pray for easy lives. Pray to be stronger men
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+👋 Hi, I’m @firstmoonlight
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+👀 I’m interested in compiler and operator system
 
-What else do you need?
+🌱 I’m currently learning <Crafting Interpreters> and Clang is also my interest
 
-### My story
+there are some notes about what i'm learning.
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+
+>Fairy tales are more than true: not because they tell us that dragons exist, but because they tell us that dragons can be beaten.
+
+>— G.K. Chesterton by way of Neil Gaiman, Coraline
