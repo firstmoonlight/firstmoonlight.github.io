@@ -1,4 +1,11 @@
-最近在看《effective modern C++》，到条款二十五，看到了C++返回值拷贝的说明，故做一下总结。并参考了网上的资料。[深入理解C++中的RVO](https://zhuanlan.zhihu.com/p/341680064)
+---
+layout: post
+title: C++返回值拷贝以及std::move
+tags: [c++语法]
+---
+
+最近在学习《effective modern C++》，到条款二十五，看到了C++返回值拷贝的说明，故做一下总结。并参考了网上的资料[深入理解C++中的RVO](https://zhuanlan.zhihu.com/p/341680064)。
+
 
 ## 概述
 我将以下面的类为例子，说明C++在RVO的情况下以及关闭RVO情况下，其函数返回值是如何返回给调用者的，并给出其汇编代码的说明。环境是Ubuntu Linux，编译器为GCC7.5.0。
