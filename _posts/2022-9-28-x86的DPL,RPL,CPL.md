@@ -1,3 +1,11 @@
+---
+layout: post
+title: x86的DPL,RPL,CPL
+tags: [Linux]
+---
+
+《x86汇编语言从实模式到保护模式》的第十一章和十四章描述了RPL和CPL，故对此进行进一步总结。
+
 [cpu之DPL,RPL,CPL 之间的联系和区别](https://www.cnblogs.com/buzhunbukaixin/articles/4662004.html)
 
 官方文档[Intel’s software developer manuals](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)，“Privilege Levels” 和 “Checking Caller Access Privileges”这两节。
