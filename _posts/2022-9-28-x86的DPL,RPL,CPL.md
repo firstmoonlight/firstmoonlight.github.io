@@ -10,7 +10,7 @@
 * CPL(CS.RPL)是CS寄存器里bit 0和bit 1 位组合所得的值.在某一时刻就只有这个值唯一的代表程序的CPL。
 * RPL是段选择子里面的bit 0和bit 1位组合所得的值。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image40.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image40.png?raw=true" width="70%">
 
 * DPL是段描述符中的特权级, 它的本意是用来代表它所描述的段的特权级。
 
@@ -19,12 +19,12 @@
 # 2. 对数据段和堆栈段访问时的特权级控制
 处理器对数据段的访问是通过DS寄存器来进行的。DS寄存器中的段选择子的前12个字节表示描述符索引，指向GDT中的一个段描述符，段描述符的DPL表示该地址段的特权级。DS寄存器的后2bit表示其RPL。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image41.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image41.png?raw=true" width="70%">
 
 只有当`CPL <= DPL 且 RPL <= DPL`的情况下，才能访问相应的数据段(0表示特权级最高，3表示特权级最低)。即此时CS寄存器的最后2个bit的值以及DS寄存器最后两个bit的值均要小于DS寄存器指向的段描述符的DPL。
 当我们通过指令（例如mov，pop，lds，les，lfs，lgs或者lss指令）要将一个段选择子加载到DS寄存器的时候，我们需要对CPL，该段选择子的RPL和段选择子指向的段描述符的DPL进行比较，如下图所示。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image42.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image42.png?raw=true" width="70%">
 
 # 3. 对代码段访问的特权级控制
 在这里主要解释JMP和CALL指令引起的控制转移。
@@ -43,7 +43,7 @@ JMP, CALL, 和RET的远跳转因为可以跳转到其它的代码段，因此需
 * RPL：目标代码段选择子的RPL字段
 * conforming (C) flag：目标段描述符的conforming (C) flag标记
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image43.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image43.png?raw=true" width="70%">
 
 
 ### 3.1.1 访问Nonconforming代码段
@@ -51,7 +51,7 @@ JMP, CALL, 和RET的远跳转因为可以跳转到其它的代码段，因此需
 * 当前CPL必须与目标代码段选择子指向的段描述符的DPL相等，`CPL == DPL`。
 * 目标段选择子的RPL需要小于等于当前的CPL。例如在下图中，C1的RPL可以被设置为0，1，2，但是不能被设置为3。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image44.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image44.png?raw=true" width="70%">
 
 2. CPL的变化
 当nonconforming代码段的段选择子被加载到CS寄存器的时候，CPL不会被改变，即使目标段选择子的RPL和当前的CPL不同。
@@ -83,7 +83,7 @@ Conforming代码段一般用于代码模块，例如数值运算和异常处理�
 ## 3.3 调用门（Call Gate）
 调用门可以完成程序在不同特权级别之间的控制转移。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image45.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image45.png?raw=true" width="70%">
 
 P字段表示这个调用门是否有效。如果P为0，会触发#NP异常。因此这个字段可以用来作为一个debug位，统计这个程序被调用的次数。
 
@@ -91,7 +91,7 @@ P字段表示这个调用门是否有效。如果P为0，会触发#NP异常。�
 1.  调用门流程
 CALL和JMP指令操作数的段选择子指向调用门描述符，再从门描述符中取得偏移地址以及目标代码的段选择子，这个段选择子指向目标代码段描述符，之后就可以取得目标代码段的段基地址。目标代码段描述符的段及地址加上调用门描述符中的偏移地址，就是目标调用程序的入口了。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image46.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image46.png?raw=true" width="70%">
 
 
 2. 特权检测
@@ -102,17 +102,17 @@ CALL和JMP指令操作数的段选择子指向调用门描述符，再从门描�
 * DPL：目标代码段的段描述符的DPL字段
 * 目标代码段的段描述符的C flag (conforming)
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image47.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image47.png?raw=true" width="70%">
 
 
 3. 特权检测规则
 JMP和CALL指令的特权检测规则是不同的，如下图所示：
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image48.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image48.png?raw=true" width="70%">
 
 4. 特权检测示例
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image49.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image49.png?raw=true" width="70%">
 
 **首先，当前`CPL`必须要小于等于调用门的`DPL`**。例如，GATE A的DPL是3，所以Code Segment A、B、C都可以访问它。而GATE B的DPL是2，只有Code Segment B和Code Segment C可以访问。
 **其次，门选择子的`RPL`也必须要小于等于调用门的`DPL`**。例如，Code Segment C使用Gate Select B1和B2能够访问Gate B，但是不能使用Gate Selector B3来访问Gate B。

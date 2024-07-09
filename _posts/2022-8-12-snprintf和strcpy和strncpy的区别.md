@@ -25,7 +25,7 @@ int main() {
 ```
 输出结果如下：
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image3.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image3.png?raw=true" width="70%">
 
 可以看出，目的内存`buf`只能存放10个字符，而`"hello word"`加上最后的`'\0'`，总共有11个字符，因此`snprintf`最多拷贝9个字符到`buf`中，并将最后一个字符设置为`'\0'`。
 
@@ -59,15 +59,15 @@ int main() {
 ```
 输出结果如下：
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image4.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image4.png?raw=true" width="70%">
 
 可以看出，原本拷贝到`buf1`中的数据，覆盖了`buf2`中的数据。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image5.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image5.png?raw=true" width="70%">
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image6.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image6.png?raw=true" width="70%">
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image7.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image7.png?raw=true" width="70%">
 
 
 
@@ -99,11 +99,11 @@ int main() {
 
 输出如下图所示
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image8.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image8.png?raw=true" width="70%">
 
 同样的，我们看一下`buf`，`buf1`，`buf2`的内容。`buf2`的内容并未被覆盖，但是`buf1`的最后一个字符是`o`而不是`"\0"`。
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image9.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image9.png?raw=true" width="70%">
 
-<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image10.png" width="70%">
+<img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/2024_7_8/Image10.png?raw=true" width="70%">
 
