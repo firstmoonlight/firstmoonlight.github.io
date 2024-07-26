@@ -14,13 +14,15 @@ tags: [Mit6.828]
 
 <img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/MIT6.828/Image3.png?raw=true" width="70%">
 
-
+```
  0 -          640K     内存区域
  0xF0000 - 0xFFFFF BIOS区域
  0xB8000 - 0xBFFF  显卡区域
- 
- ## The ROM BIOS
  ```
+
+ ## The ROM BIOS
+
+```
 [f000:fff0] 0xffff0:    ljmp   $0xf000,$0xe05b
 ```
  
@@ -147,14 +149,14 @@ tags: [Mit6.828]
 boot.S文件中主要做了以下事情：初始化段寄存器、打开A20门、从实模式跳到虚模式（需要设置GDT和cr0寄存器），最后调用bootmain函数。
 
 * gdt表信息如下  </br>
-GDT表有23个表项，基地址在gdt标号处。
-共设置了3个表项：
-表项1 -- 空，GDT表项第一个表项必须为空
-表项2 -- 代码段，基地址为0x0，总长度为0xffffffff = 4GB
-表项3 -- 数据段，基地址为0x0，总长度为0xffffffff = 4Gb
-说明xv6并没有使用分段机制，用的是平坦模型，和linux是一样的
-```
+GDT表有23个表项，基地址在gdt标号处。 </br>
+共设置了3个表项： </br>
+表项1 -- 空，GDT表项第一个表项必须为空 </br>
+表项2 -- 代码段，基地址为0x0，总长度为0xffffffff = 4GB </br>
+表项3 -- 数据段，基地址为0x0，总长度为0xffffffff = 4Gb </br>
+说明xv6并没有使用分段机制，用的是平坦模型，和linux是一样的 </br>
 
+```
 1 # Bootstrap GDT
  2 .p2align 2                               # force 4 byte alignment
  
