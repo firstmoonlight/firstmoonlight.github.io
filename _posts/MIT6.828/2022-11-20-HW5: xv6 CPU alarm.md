@@ -6,13 +6,14 @@ tags: [Mit6.828]
 
 这个HW的主要任务就是在进程使用CPU的时候，定期向其发送alert。
 
-添加这个功能的意义在于，一是可以限制进程占用CPU的时间，二是可以当进程想要执行定时任务的时候，可以利用这个alert。
-添加一个新的alarm(interval，handler）系统调用。 如果应用程序调用alarm（n，fn），那么在程序消耗每个n“ticks”的CPU时间之后，内核将调用应用程序函数fn。 当fn返回时，应用程序将从中断处继续。 tick是xv6中相当随意的时间单位，由硬件定时器产生中断的频率决定。
+* 添加这个功能的意义在于，一是可以限制进程占用CPU的时间，二是可以当进程想要执行定时任务的时候，可以利用这个alert。
+* 添加一个新的alarm(interval，handler）系统调用。 如果应用程序调用alarm（n，fn），那么在程序消耗每个n“ticks”的CPU时间之后，内核将调用应用程序函数fn。 当fn返回时，应用程序将从中断处继续。 (tick是xv6中相当随意的时间单位，由硬件定时器产生中断的频率决定).
 
 添加系统调用的流程和HW3是一样的，流程如下：
-## 添加系统调用流程
-1. 创建`alarmtest.c`，用于生成可执行文件`alarmtest`。
-创建`alarmtest.c`文件，其包含如下代码：
+## 1 添加系统调用流程
+### 1.1 创建`alarmtest.c`，用于生成可执行文件`alarmtest`。
+* 创建`alarmtest.c`文件，其包含如下代码：
+
 ```
 #include "types.h"
 #include "stat.h"
@@ -38,9 +39,10 @@ periodic()
 {
   printf(1, "alarm!\n");
 }
-
 ```
-程序调用`alarm(10, periodic)`，要求内核每隔10个ticks强制调用periodic()，然后自旋一段时间。其输出应该如下所示：
+
+* 程序调用`alarm(10, periodic)`，要求内核每隔10个ticks强制调用periodic()，然后自旋一段时间。其输出应该如下所示：
+
 ```
 $ alarmtest
 alarmtest starting
@@ -56,7 +58,9 @@ alarmtest starting
 ...alarm!
 ...$ 
 ```
-2. 修改Makefile
+
+### 1.2 修改Makefile
+
 ```
   169 UPROGS=\
   170     _cat\
@@ -84,15 +88,18 @@ alarmtest starting
   256     printf.c umalloc.c\
   257     README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
   258     .gdbinit.tmpl gdbutil\
-
 ```
-3. 修改user.h
+
+### 1.3 修改user.h
+
 ```
 int uptime(void);
 int date(struct rtcdate* r);
 ++ int alarm(int ticks, void (*handler)());
 ```
-4. 修改syscall.h和usys.S
+
+### 1.4 修改syscall.h和usys.S
+
 ```
 //syscall.h
 #define SYS_close  21
@@ -104,7 +111,8 @@ SYSCALL(uptime)
 SYSCALL(date)
 ++ SYSCALL(alarm)
 ```
-5. 修改proc.h
+
+### 1.5 修改proc.h
 ```
 ++ typedef void (*ALARMHANDLER)();
 
@@ -130,7 +138,8 @@ struct proc {
 };
 ```
 
-6. 修改syscall.c
+### 1.6 修改syscall.c
+
 ```
 ++ int
 ++ sys_alarm(void)
@@ -147,7 +156,8 @@ struct proc {
 ++ }
 ```
 
-7. 修改trap.c
+### 1.7 修改trap.c
+
 ```
   case T_IRQ0 + IRQ_TIMER:
     if(cpuid() == 0){
@@ -170,15 +180,18 @@ struct proc {
     lapiceoi();
     break;
 ```
-8. 执行结果
+
+### 1.8 执行结果
 
 <img src="https://github.com/firstmoonlight/MarkdownImages/blob/main/MIT6.828/Image25.png?raw=true" width="70%">
 
 
-## 个人遇到的难点
-1、In your IRQ_TIMER code, when a process's alarm interval expires, you'll want to cause it to execute its handler. How can you do that?
-即，当一个进程的报警间隔到期时，如何让它执行handler程序？
+## 2 个人遇到的难点
+### 2.1 当一个进程的报警间隔到期时，如何让它执行handler程序？
+> In your IRQ_TIMER code, when a process's alarm interval expires, you'll want to cause it to execute its handler. How can you do that?
+
 答：如下代码所示，当alarmticketscnt大于设定的alarmticks时，就可以执行回调函数alarmhandler。
+
 ```
   case T_IRQ0 + IRQ_TIMER:
     if(cpuid() == 0){
@@ -203,10 +216,12 @@ struct proc {
     lapiceoi();
     break;
 ```
+
 `myproc()->alarmhandler();`内核态下这段代码无法跳转到回调函数的原因：回调函数是在用户态下定义的，其特权级因该为3，而内核态的特权级为0，由于安全性，特权级高的无法直接调用特权低的代码，因此这部分代码不起作用。
 
-2、You need to arrange things so that, when the handler returns, the process resumes executing where it left off. How can you do that?
-当handler程序返回之后，如何让当前进程继续执行呢？
+### 2.2当handler程序返回之后，如何让当前进程继续执行呢？
+> You need to arrange things so that, when the handler returns, the process resumes executing where it left off. How can you do that?
+
 答：因为handler函数是在ineterrupt的时候调用的，因此当handler返回，interrupt结束的时候，就会自动执行process。
 
 tf->esp保存着的是用户态栈的栈顶地址，而用户态栈顶中保存着的是其下一条执行的语句。因此当我们将tf->eip替换成回调函数的地址之后，表示我们在中断结束之后，将会执行回调函数，而执行完回调函数之后，cpu会继续执行用户态栈顶保存的地址所对应的指令，因此只需要我们将用户态栈顶扩展4个字节，并将原先想要执行的指针放入到这4个字节中，就实现了从回调函数返回后再继续执行process的功能了。
