@@ -101,6 +101,11 @@ Nsight Compute提供了Occupancy Calculater工具来计算理论上的active war
 
 
 
+最后我们可以通过graphic来查看block size，register，share memory对可启动的warp的实时影响
+
+![image](https://github.com/user-attachments/assets/e39d2e00-a7c5-458a-a5c2-3c95260c8f59)
+
+
 
 
 
