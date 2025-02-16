@@ -1,3 +1,9 @@
+---
+layout: post
+title: Occupancy Calculater
+tags: [cuda learning]
+---
+
 参考资料：
 
 [【CUDA调优指南】Occupancy Calculater](https://www.bilibili.com/video/BV1WNrHY5EeP?spm_id_from=333.788.videopod.episodes&vd_source=d2914dc08c654d5cdb584d78d1806154)
