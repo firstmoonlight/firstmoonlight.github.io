@@ -81,10 +81,10 @@ Nsight Compute提供了Occupancy Calculater工具来计算理论上的active war
 #### share memory对SM可启动warp数量的影响
 下图是Physical Limit of GPU栏目中和share memory相关的限制：
 
-1. 每个SM最多有16384B的share memory
+1. 每个SM最多有32768B的share memory，和4的配置是一样的
 2. share memory的分配单元是128B
 3. 每个SM必须分配1024B share memory
-4. share memory配置为32768B
+4. share memory配置为32768B (可配置的)
 
 ![image](https://github.com/user-attachments/assets/7c5629e5-7350-4c5e-9b4f-6255393c4d21)
 
