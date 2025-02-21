@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Rooline Model笔记
+title: RooflineModel笔记
 tags: [cuda learning]
 ---
 
