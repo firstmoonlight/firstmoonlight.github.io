@@ -1,5 +1,6 @@
 ---
 layout: post
+mathjax: true
 title: Roofline Model笔记
 tags: [cuda learning]
 ---
