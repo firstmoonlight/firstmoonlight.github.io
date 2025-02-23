@@ -56,12 +56,14 @@ Roof-line的图形如下图所示，它显示了一个类似屋檐的图案。Y�
 
 ### **2. Roof-line 划分出的两个瓶颈区域**
 
-$$ P= \begin{cases}  \beta * I ,&\text{When I < $I_{max}$, Memory Bound}\\ 
-\pi,&\text{When I $\geq$ $I_{max}$, Compute Bound} \end{cases} $$
+$$ 
+P= \begin{cases}  \beta * I ,&\text{When I < $I_{max}$, Memory Bound}\\ 
+\pi,&\text{When I $\geq$ $I_{max}$, Compute Bound} \end{cases} 
+$$
 
 ### **Compute Bound**
 
-不管模型的计算强度 I 有多大，它的理论性能 P 最大只能等于计算平台的算力 π 。当模型的计算强度 $I$ 大于计算平台的计算强度上限 $I_{max}$ 时，模型在当前计算平台处于 `Compute-Bound`状态，即模型的理论性能 P 受到计算平台算力 π 的限制，无法与计算强度 I 成正比。
+不管模型的计算强度 I 有多大，它的理论性能 P 最大只能等于计算平台的算力 π 。当模型的计算强度 $I$ 大于计算平台的计算强度上限 $I_{max}$ 时，模型在当前计算平台处于 `Compute-Bound`状态，即模型的理论性能 P 受到计算平台算力 π 的限制，无法与计算强度 I 成正比。
 
 ### **Memory Bound**
 
