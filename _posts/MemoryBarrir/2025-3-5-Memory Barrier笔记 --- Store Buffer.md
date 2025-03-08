@@ -5,14 +5,18 @@ tags: [Memory Barrier]
 ---
 
 尽管前述的缓存结构在重复读写时具有良好性能，但对于首次写入某个缓存行时其性能较差。以图4为例，当CPU0要写入一个被CPU1缓存的缓存行时，必须等待该缓存行到达，导致CPU0长时间停滞。 但是我们其实并没有必要让CPU0长时间停滞，因为它无论如何都会无条件覆盖该缓存行的数据。
-![[Pasted image 20250303132430.png]]
+
+![image](https://github.com/user-attachments/assets/86aabf72-b931-4c0c-8274-f8c5cce4f4c2)
+
 
 ## 1、**Store Buffer**
 
 如下图所示，我们通过在Cache和CPU之间引入一层Store Buffer来进行这个优化。当CPU0写入的时候，它直接写入到Store Buffer中，然后再继续执行，而无需等待CPU1的Invalidate Acknowledge消息。当CPU1的消息返回之后，再将Store Buffer中的数据写入到缓存中。
 
 但是增加一个Store Buffer虽然提升了速度，但是引入了两个新的复杂问题，需要我们在后面两节中确认。
-![[Pasted image 20250303132734.png]]
+
+![image](https://github.com/user-attachments/assets/0807f7fb-bdfb-4b91-9e74-dd029e94f52e)
+
 
 ## 2、**Store Forwarding**
 
@@ -42,7 +46,8 @@ assert(b == 2);
 
 解决方法：为了解决这个问题，硬件工程师引入"Store Fowarding"机制，即CPU在执行Load操作时会检查自己的**Store Buffer**，从而避免一些反直觉的问题。
 
-![[Pasted image 20250304151004.png]]
+![image](https://github.com/user-attachments/assets/8dee7030-295f-47e6-8582-ac243bc84227)
+
 
 ## 3、**Store Buffers and Memory Barriers**
 
