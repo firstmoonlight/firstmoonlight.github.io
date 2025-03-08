@@ -21,7 +21,9 @@ tags: [Memory Barrier]
 * Invalidate Queue基于这样的一个现实，即CPU在返回ACK的时候，并不需要真正的将对应的Cache Line invalidate，它可以等到后续需要对该Cache Line的进行读写的时候再执行Invalidate操作。这有点像内存的[延迟分配](https://www.cnblogs.com/whiteBear/p/16729327.html)。
 * CPU接收到Invalidate请求之后，会将该Invalidate消息push到`Invalidate Queue`中，并立即返回`Invalidate Acknowledge`消息。
 
-![[Pasted image 20250305175847.png]]
+![image](https://github.com/user-attachments/assets/b5ebd9e5-67f4-46f3-9d31-745cda9e3ccc)
+
+
 ## **2、Invalidate Queues and Memory Barriers**
 
 ### **2.1、Invalidate Queue引入的风险**
