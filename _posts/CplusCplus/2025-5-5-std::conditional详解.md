@@ -1,4 +1,8 @@
-
+---
+layout: post
+title: std::conditional详解
+tags: [C++]
+---
 
 
 `std::conditional` 是 C++ 标准库 `<type_traits>` 头文件中提供的一个模板工具，用于在编译时根据布尔条件选择两种类型中的一种。其核心功能类似于三元条件运算符（`?:`），但作用于类型层面而非值层面。
