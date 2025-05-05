@@ -1,7 +1,7 @@
 ---
 layout: post
 title: std::conditional详解
-tags: [C++]
+tags: [c++语法]
 ---
 
 
